@@ -40,6 +40,9 @@ def clean_up_columns(casa_df, sample_info, score_cut_off):
     casa_df['probe_name'] = sample_info['probe_name']
     casa_df['sample_name'] = sample_info['sample_name']
     casa_df['scan'] = casa_df['scan'].apply(lambda x : f"{sample_info['probe_name']}_{x}")
+
+    # remove all characters that are not upper case letters
+    casa_df['sequence'] = casa_df['sequence'].apply(lambda x: ''.join([c for c in x if c.isupper()]))
     return casa_df
 
 def read_casanovo_dfs(input_folder, sample_info_df, score_cut_off):
