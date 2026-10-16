@@ -34,11 +34,11 @@ def main():
     pivoted_df.to_csv(f"{CONFIG['output_folder']}/pivoted_dn_df.csv", index=False)
 
     pivoted_df = map_to_known_proteins(pivoted_df, CONFIG['fasta_files'], CONFIG['contam_fasta_files'])
-    pivoted_df.to_csv(f"{CONFIG['output_folder']}/mapped_pivoted_dn_df.csv", index=True)
+    pivoted_df.to_csv(f"{CONFIG['output_folder']}/mapped_pivoted_dn_df.csv", index=False)
+    pivoted_df = pd.read_csv(f"{CONFIG['output_folder']}/mapped_pivoted_dn_df.csv")
 
+    unknown_df = pivoted_df[pivoted_df['unknown_mapping']].drop(columns=['contam_mapping','canonical_mapping','unknown_mapping'])
 
-    unknown_df = pivoted_df[pivoted_df['unknown_mapping']]
-    
 
     return
 
